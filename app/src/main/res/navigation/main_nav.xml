@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/fragment_login">
+    <fragment
+        android:id="@+id/fragment_all"
+        android:name="com.simon.orisapp.ui.main.AllFragment"
+        android:label="Všechny závody"
+        tools:layout="@layout/fragment_all">
+        <action
+            android:id="@+id/action_fragment_all_to_fragment_event"
+            app:destination="@id/fragment_event" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_history"
+        android:name="com.simon.orisapp.ui.main.HistoryFragment"
+        android:label="Historie"
+        tools:layout="@layout/fragment_history">
+        <action
+            android:id="@+id/action_fragment_history_to_fragment_event"
+            app:destination="@id/fragment_event" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_oncoming"
+        android:name="com.simon.orisapp.ui.main.OncomingFragment"
+        android:label="Přihlášené závody"
+        tools:layout="@layout/fragment_oncoming">
+        <action
+            android:id="@+id/action_fragment_oncoming_to_fragment_event"
+            app:destination="@id/fragment_event" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fragment_event"
+        android:name="com.simon.orisapp.ui.main.EventFragment"
+        android:label="Závod"
+        tools:layout="@layout/fragment_event"/>
+
+
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="com.simon.orisapp.ui.main.LoginFragment"
+        android:label="Přihlásit se"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_fragment_login_to_fragment_oncoming"
+            app:destination="@id/fragment_oncoming" />
+    </fragment>
+
+</navigation>

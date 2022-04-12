@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Heslo:"
+        app:layout_constraintBottom_toTopOf="@+id/input_password"
+        app:layout_constraintTop_toBottomOf="@+id/input_username"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Uživatelské jméno ORIS:"
+        app:layout_constraintBottom_toTopOf="@+id/input_username"
+        app:layout_constraintTop_toBottomOf="@+id/input_registration"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_background"
+        android:hint="heslo"
+        android:padding="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrační číslo:"
+        app:layout_constraintBottom_toTopOf="@+id/input_registration"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:id="@+id/input_registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_background"
+        android:hint="TAP1234"
+        android:padding="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:id="@+id/input_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_background"
+        android:hint="marek.novak"
+        android:padding="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_background"
+        android:text="@string/save_personal_info"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_password"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_margin="10dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
