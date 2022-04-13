@@ -4,11 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/simon/AndroidStudioProjects/ORISApp2/app/src/main/res/drawable/btn_background.xml" value="0.2985" />
+        <entry key="..\:/Users/simon/AndroidStudioProjects/ORISApp2/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2335" />
         <entry key="..\:/Users/simon/AndroidStudioProjects/ORISApp2/app/src/main/res/drawable/input_background.xml" value="0.2335" />
         <entry key="..\:/Users/simon/AndroidStudioProjects/ORISApp2/app/src/main/res/layout/activity_main.xml" value="0.228125" />
+        <entry key="..\:/Users/simon/AndroidStudioProjects/ORISApp2/app/src/main/res/layout/fragment_event.xml" value="0.30213160333642264" />
         <entry key="..\:/Users/simon/AndroidStudioProjects/ORISApp2/app/src/main/res/layout/fragment_event_list.xml" value="0.228125" />
         <entry key="..\:/Users/simon/AndroidStudioProjects/ORISApp2/app/src/main/res/layout/fragment_login.xml" value="0.33" />
         <entry key="..\:/Users/simon/AndroidStudioProjects/ORISApp2/app/src/main/res/layout/item_event.xml" value="0.2" />
+        <entry key="..\:/Users/simon/AndroidStudioProjects/ORISApp2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2335" />
       </map>
     </option>
   </component>

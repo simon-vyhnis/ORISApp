@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.simon.orisapp.model.Event
 import com.simon.orisapp.model.EventList
 
-class EventsViewAdapter(private val events: EventList, private val context:Context) : RecyclerView.Adapter<EventsViewAdapter.ViewHolder>() {
+class EventsViewAdapter(private val events: EventList, private val context:Context, private val viewModel: EventListViewModel) : RecyclerView.Adapter<EventsViewAdapter.ViewHolder>() {
     private val list = events.data.toList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false)
@@ -24,6 +25,10 @@ class EventsViewAdapter(private val events: EventList, private val context:Conte
             holder.itemView.setBackgroundColor(context.getColor(R.color.grey))
         }else{
             holder.itemView.setBackgroundColor(context.getColor(R.color.white))
+        }
+        holder.itemView.setOnClickListener {
+            viewModel.selectedEventId = list[position].second.id
+            it.findNavController().navigate(R.id.fragmentEvent)
         }
     }
 

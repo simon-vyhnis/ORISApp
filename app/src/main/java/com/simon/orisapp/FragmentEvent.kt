@@ -4,22 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class EventListFragment : Fragment() {
+class FragmentEvent : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_event_list, container, false)
+        val root = inflater.inflate(R.layout.fragment_event, container, false)
         val viewModel = ViewModelProvider(requireActivity()).get(EventListViewModel::class.java)
 
-        viewModel.getEventList().observe(viewLifecycleOwner) {
-            val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerView)
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.adapter = EventsViewAdapter(it, requireContext(), viewModel)
+        viewModel.getEventDetails().observe(viewLifecycleOwner) {
+            root.findViewById<TextView>(R.id.date).text  = "Datum: "+ it.data.date
+            root.findViewById<TextView>(R.id.name).text  = it.data.name
+            root.findViewById<TextView>(R.id.place).text  = "Místo: "+it.data.place
         }
         return root
 

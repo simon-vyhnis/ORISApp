@@ -10,5 +10,9 @@
         android:id="@+id/eventListFragment"
         android:name="com.simon.orisapp.EventListFragment"
         android:label="EventListFragment" />
+    <fragment
+        android:id="@+id/fragmentEvent"
+        android:name="com.simon.orisapp.FragmentEvent"
+        android:label="FragmentEvent" />
 
 </navigation>

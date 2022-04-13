@@ -2,6 +2,7 @@ package com.simon.orisapp.http
 
 
 import com.simon.orisapp.model.AdditionalUserInfo
+import com.simon.orisapp.model.Event
 import com.simon.orisapp.model.EventData
 import com.simon.orisapp.model.EventList
 import retrofit2.Call
@@ -17,7 +18,7 @@ interface OrisAPI {
     fun getUserEvents(@Query("userid") id : String) : Call<String>
 
     @GET("API?format=json&method=getEvent")
-    fun getEventData(@Query("id") id : String) : Call<EventData>
+    fun getEventData(@Query("id") id : String) : Call<Event>
 
     @GET("API/?format=json&method=getEventList")
     fun getEventList() : Call<EventList>
