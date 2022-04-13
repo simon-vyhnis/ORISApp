@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ class EventListFragment : Fragment() {
         val viewModel = ViewModelProvider(requireActivity()).get(EventListViewModel::class.java)
 
         viewModel.getEventList().observe(viewLifecycleOwner) {
+            root.findViewById<ProgressBar>(R.id.progress_circular).visibility = View.GONE
             val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = EventsViewAdapter(it, requireContext(), viewModel)

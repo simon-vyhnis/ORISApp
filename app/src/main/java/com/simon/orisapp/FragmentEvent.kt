@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,10 +17,21 @@ class FragmentEvent : Fragment() {
         val root = inflater.inflate(R.layout.fragment_event, container, false)
         val viewModel = ViewModelProvider(requireActivity()).get(EventListViewModel::class.java)
 
+        val date = root.findViewById<TextView>(R.id.date)
+        val name = root.findViewById<TextView>(R.id.name)
+        val place = root.findViewById<TextView>(R.id.place)
+        val card1 = root.findViewById<CardView>(R.id.cardView1)
+        card1.visibility = View.GONE
+        name.visibility = View.GONE
+
         viewModel.getEventDetails().observe(viewLifecycleOwner) {
-            root.findViewById<TextView>(R.id.date).text  = "Datum: "+ it.data.date
-            root.findViewById<TextView>(R.id.name).text  = it.data.name
-            root.findViewById<TextView>(R.id.place).text  = "Místo: "+it.data.place
+            root.findViewById<ProgressBar>(R.id.progress_circular).visibility = View.GONE
+            card1.visibility = View.VISIBLE
+            name.visibility = View.VISIBLE
+
+            date.text  = "Datum: "+ it.data.date
+            name.text  = it.data.name
+            place.text  = "Místo: "+it.data.place
         }
         return root
 
