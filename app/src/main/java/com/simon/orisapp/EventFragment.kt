@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class FragmentEvent : Fragment() {
+class EventFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_event, container, false)
         val viewModel = ViewModelProvider(requireActivity()).get(EventListViewModel::class.java)
@@ -25,13 +26,17 @@ class FragmentEvent : Fragment() {
         name.visibility = View.GONE
 
         viewModel.getEventDetails().observe(viewLifecycleOwner) {
-            root.findViewById<ProgressBar>(R.id.progress_circular).visibility = View.GONE
-            card1.visibility = View.VISIBLE
-            name.visibility = View.VISIBLE
+            if(it.successful) {
+                root.findViewById<ProgressBar>(R.id.progress_circular).visibility = View.GONE
+                card1.visibility = View.VISIBLE
+                name.visibility = View.VISIBLE
 
-            date.text  = "Datum: "+ it.data.date
-            name.text  = it.data.name
-            place.text  = "Místo: "+it.data.place
+                date.text = "Datum: " + it.data?.date
+                name.text = it.data?.name
+                place.text = "Místo: " + it.data?.place
+            }else{
+                Toast.makeText(context, R.string.error_msg, Toast.LENGTH_SHORT).show()
+            }
         }
         return root
 

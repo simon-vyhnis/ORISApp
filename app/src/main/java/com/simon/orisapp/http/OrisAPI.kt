@@ -21,5 +21,5 @@ interface OrisAPI {
     fun getEventData(@Query("id") id : String) : Call<Event>
 
     @GET("API/?format=json&method=getEventList")
-    fun getEventList() : Call<EventList>
+    fun getEventList(@Query("datefrom") dateFrom : String, @Query("dateto") dateTo : String) : Call<EventList>
 }

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ORIS App</string>
     <string name="save_personal_info">Uložit údaje</string>
+    <string name="error_msg">Nepodařilo se načíst )\':</string>
 
     <string name="preferences_file">com.simon.oris.PERSONAL_INFO</string>
 </resources>
