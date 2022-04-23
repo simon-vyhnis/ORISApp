@@ -15,18 +15,20 @@ class LinkTypeAdapter : TypeAdapter<Link>() {
         var name: String? = null
         var url: String? = null
 
+        `in`.beginObject()
         while(`in`.hasNext()) {
             var token: JsonToken = `in`.peek()
             if(token == JsonToken.NAME){
                 when (`in`.nextName()){
                     "Url" -> url = `in`.nextString()
-                    "OtherDescCZ" -> name.let { name = `in`.nextString() }
-                    "SourceType" -> parseSourceType(`in`)
+                    "OtherDescCZ" -> if(name == null){ name = `in`.nextString() }
+                    "SourceType" -> name = parseSourceType(`in`)
                 }
             }else{
                 `in`.skipValue()
             }
         }
+        `in`.endObject()
 
         return Link(url, name)
     }
@@ -37,11 +39,15 @@ class LinkTypeAdapter : TypeAdapter<Link>() {
             reader.beginArray()
             reader.endArray()
         }else{
+            reader.beginObject()
             while(reader.hasNext()) {
-                var token: JsonToken = reader.peek()
+                val token: JsonToken = reader.peek()
                 if (token == JsonToken.NAME) {
-                    if (reader.nextName() === "NameCZ") {
+                    var temp = reader.nextName()
+                    if (temp == "NameCZ") {
                         name = reader.nextString()
+                    }else{
+                        print(temp)
                     }
                 } else if (token == JsonToken.END_OBJECT) {
                     reader.endObject()
@@ -50,6 +56,7 @@ class LinkTypeAdapter : TypeAdapter<Link>() {
                     reader.skipValue()
                 }
             }
+            reader.endObject()
         }
         return name
     }
