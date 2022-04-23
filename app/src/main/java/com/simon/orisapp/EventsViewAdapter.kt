@@ -12,7 +12,7 @@ import com.simon.orisapp.model.Event
 import com.simon.orisapp.model.EventList
 
 class EventsViewAdapter(private val events: EventList, private val context:Context, private val viewModel: EventListViewModel) : RecyclerView.Adapter<EventsViewAdapter.ViewHolder>() {
-    private val list = events.data.toList()
+    private val list = events.data!!.toList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false)
         return ViewHolder(view)
@@ -33,7 +33,7 @@ class EventsViewAdapter(private val events: EventList, private val context:Conte
     }
 
     override fun getItemCount(): Int {
-        return events.data.size
+        return list.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
