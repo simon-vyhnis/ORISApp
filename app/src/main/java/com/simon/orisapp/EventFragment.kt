@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.view.doOnLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,9 +32,12 @@ class EventFragment : Fragment() {
         val card3 = root.findViewById<CardView>(R.id.cardView3)
         val docs = root.findViewById<RecyclerView>(R.id.docs)
 
+        val card4 = root.findViewById<CardView>(R.id.cardView4)
+
         card1.visibility = View.GONE
         card2.visibility = View.GONE
         card3.visibility = View.GONE
+        card4.visibility = View.GONE
         name.visibility = View.GONE
 
         viewModel.getEventDetails().observe(viewLifecycleOwner) {
@@ -41,6 +46,7 @@ class EventFragment : Fragment() {
                 card1.visibility = View.VISIBLE
                 card2.visibility = View.VISIBLE
                 card3.visibility = View.VISIBLE
+                card4.visibility = View.VISIBLE
                 name.visibility = View.VISIBLE
 
                 //card1-info
@@ -64,5 +70,27 @@ class EventFragment : Fragment() {
         }
         return root
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //card4-map
+        val map = view.findViewById<WebView>(R.id.map)
+        map.doOnLayout {
+            val html =
+                "<!doctype html><html><head><script src=\"https://api.mapy.cz/loader.js\"></script><script>Loader.load()</script></head>" +
+                        "<body><div id=\"mapa\" style=\"width:${map.width}px; height:${map.height}px;\"></div><script type=\"text/javascript\">" +
+                        "var stred = SMap.Coords.fromWGS84(14.41, 50.08);" +
+                        "var mapa = new SMap(JAK.gel(\"mapa\"), stred, 10);" +
+                        "mapa.addDefaultLayer(SMap.DEF_BASE).enable();" +
+                        "mapa.addDefaultControls();</script></body></html>"
+            val mime = "text/html"
+            val encoding = "utf-8"
+            map.settings.javaScriptEnabled = true
+            map.settings.useWideViewPort = true;
+            map.settings.loadWithOverviewMode = true;
+            map.loadDataWithBaseURL(null, html, mime, encoding, null)
+            print("h: " + map.height + "w: " + map.width)
+        }
     }
 }
