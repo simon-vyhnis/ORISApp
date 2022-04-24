@@ -27,8 +27,12 @@ class EventFragment : Fragment() {
         val card2 = root.findViewById<CardView>(R.id.cardView2)
         val links = root.findViewById<RecyclerView>(R.id.links)
 
+        val card3 = root.findViewById<CardView>(R.id.cardView3)
+        val docs = root.findViewById<RecyclerView>(R.id.docs)
+
         card1.visibility = View.GONE
         card2.visibility = View.GONE
+        card3.visibility = View.GONE
         name.visibility = View.GONE
 
         viewModel.getEventDetails().observe(viewLifecycleOwner) {
@@ -36,6 +40,7 @@ class EventFragment : Fragment() {
                 root.findViewById<ProgressBar>(R.id.progress_circular).visibility = View.GONE
                 card1.visibility = View.VISIBLE
                 card2.visibility = View.VISIBLE
+                card3.visibility = View.VISIBLE
                 name.visibility = View.VISIBLE
 
                 //card1-info
@@ -47,6 +52,11 @@ class EventFragment : Fragment() {
                 it.data?.links?.values.let {noNullLinks->
                     links.adapter = LinksViewAdapter(ArrayList<Link?>(noNullLinks))
                     links.layoutManager = LinearLayoutManager(context)
+                }
+                //card3-links
+                it.data?.docs?.values.let {noNullDocs->
+                    docs.adapter = LinksViewAdapter(ArrayList<Link?>(noNullDocs))
+                    docs.layoutManager = LinearLayoutManager(context)
                 }
             }else{
                 Toast.makeText(context, R.string.error_msg, Toast.LENGTH_SHORT).show()
