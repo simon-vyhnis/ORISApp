@@ -10,9 +10,14 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.simon.orisapp.model.Event
 import com.simon.orisapp.model.EventList
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class EventsViewAdapter(private val events: EventList, private val context:Context, private val viewModel: EventListViewModel) : RecyclerView.Adapter<EventsViewAdapter.ViewHolder>() {
     private val list = events.data!!.toList()
+    private val originalFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    private val userFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false)
         return ViewHolder(view)
@@ -20,7 +25,8 @@ class EventsViewAdapter(private val events: EventList, private val context:Conte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = list[position].second.name
-        holder.date.text = list[position].second.date
+        val date = LocalDate.parse(list[position].second.date, originalFormat)
+        holder.date.text = date.format(userFormat)
         if(position%2 == 0){
             holder.itemView.setBackgroundColor(context.getColor(R.color.grey))
         }else{

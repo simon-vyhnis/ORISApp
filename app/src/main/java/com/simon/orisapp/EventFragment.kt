@@ -13,8 +13,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simon.orisapp.model.Link
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class EventFragment : Fragment() {
+
+    private val originalFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    private val userFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy")
 
     private var card1 : CardView? = null
     private var card2 : CardView? = null
@@ -40,9 +45,9 @@ class EventFragment : Fragment() {
         val startTime = root.findViewById<TextView>(R.id.startTime)
         card2 = root.findViewById(R.id.cardView2)
         val links = root.findViewById<RecyclerView>(R.id.links)
-        card3 = root.findViewById<CardView>(R.id.cardView3)
+        card3 = root.findViewById(R.id.cardView3)
         val docs = root.findViewById<RecyclerView>(R.id.docs)
-        card4 = root.findViewById<CardView>(R.id.cardView4)
+        card4 = root.findViewById(R.id.cardView4)
 
         card1?.visibility = View.GONE
         card2?.visibility = View.GONE
@@ -60,7 +65,7 @@ class EventFragment : Fragment() {
                 name?.visibility = View.VISIBLE
 
                 //card1-info
-                date.text = "Datum: " + it.data?.date
+                date.text = "Datum: " + LocalDate.parse(it.data?.date, originalFormat).format(userFormat)
                 name?.text = it.data?.name
                 place.text = "Místo: " + it.data?.place
                 sport.text = "Sport: "+ it.data?.sport?.name
