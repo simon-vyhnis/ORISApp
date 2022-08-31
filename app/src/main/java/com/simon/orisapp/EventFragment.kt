@@ -15,32 +15,39 @@ import androidx.recyclerview.widget.RecyclerView
 import com.simon.orisapp.model.Link
 
 class EventFragment : Fragment() {
+    private var card1 : CardView? = null
+    private var card2 : CardView? = null
+    private var name : TextView? = null
+    private var loadingBar : ProgressBar? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_event, container, false)
         val viewModel = ViewModelProvider(requireActivity()).get(EventListViewModel::class.java)
 
-        val card1 = root.findViewById<CardView>(R.id.cardView1)
+        loadingBar = root.findViewById(R.id.progress_circular)
+
+        card1 = root.findViewById(R.id.cardView1)
         val date = root.findViewById<TextView>(R.id.date)
-        val name = root.findViewById<TextView>(R.id.name)
+        name = root.findViewById(R.id.name)
         val place = root.findViewById<TextView>(R.id.place)
 
-        val card2 = root.findViewById<CardView>(R.id.cardView2)
+        card2 = root.findViewById(R.id.cardView2)
         val links = root.findViewById<RecyclerView>(R.id.links)
 
-        card1.visibility = View.GONE
-        card2.visibility = View.GONE
-        name.visibility = View.GONE
+        card1?.visibility = View.GONE
+        card2?.visibility = View.GONE
+        name?.visibility = View.GONE
 
         viewModel.getEventDetails().observe(viewLifecycleOwner) {
             if(it.successful) {
-                root.findViewById<ProgressBar>(R.id.progress_circular).visibility = View.GONE
-                card1.visibility = View.VISIBLE
-                card2.visibility = View.VISIBLE
-                name.visibility = View.VISIBLE
+                loadingBar?.visibility = View.GONE
+                card1?.visibility = View.VISIBLE
+                card2?.visibility = View.VISIBLE
+                name?.visibility = View.VISIBLE
 
                 //card1-info
                 date.text = "Datum: " + it.data?.date
-                name.text = it.data?.name
+                name?.text = it.data?.name
                 place.text = "Místo: " + it.data?.place
 
                 //card2-links
@@ -54,5 +61,13 @@ class EventFragment : Fragment() {
         }
         return root
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        card1?.visibility = View.GONE
+        card2?.visibility = View.GONE
+        name?.visibility = View.GONE
+        loadingBar?.visibility = View.VISIBLE
     }
 }
