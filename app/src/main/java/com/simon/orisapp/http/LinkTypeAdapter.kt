@@ -17,7 +17,7 @@ class LinkTypeAdapter : TypeAdapter<Link>() {
 
         `in`.beginObject()
         while(`in`.hasNext()) {
-            var token: JsonToken = `in`.peek()
+            val token: JsonToken = `in`.peek()
             if(token == JsonToken.NAME){
                 when (`in`.nextName()){
                     "Url" -> url = `in`.nextString()
@@ -43,11 +43,8 @@ class LinkTypeAdapter : TypeAdapter<Link>() {
             while(reader.hasNext()) {
                 val token: JsonToken = reader.peek()
                 if (token == JsonToken.NAME) {
-                    var temp = reader.nextName()
-                    if (temp == "NameCZ") {
+                    if (reader.nextName() == "NameCZ") {
                         name = reader.nextString()
-                    }else{
-                        print(temp)
                     }
                 } else if (token == JsonToken.END_OBJECT) {
                     reader.endObject()

@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.simon.orisapp.model.Link
 
 class EventFragment : Fragment() {
+
     private var card1 : CardView? = null
     private var card2 : CardView? = null
+    private var card3 : CardView? = null
+    private var card4 : CardView? = null
     private var name : TextView? = null
     private var loadingBar : ProgressBar? = null
 
@@ -30,32 +33,54 @@ class EventFragment : Fragment() {
         val date = root.findViewById<TextView>(R.id.date)
         name = root.findViewById(R.id.name)
         val place = root.findViewById<TextView>(R.id.place)
-
+        val sport = root.findViewById<TextView>(R.id.sport)
+        val discipline = root.findViewById<TextView>(R.id.discipline)
+        val org = root.findViewById<TextView>(R.id.org)
+        val mapName = root.findViewById<TextView>(R.id.map_name)
+        val startTime = root.findViewById<TextView>(R.id.startTime)
         card2 = root.findViewById(R.id.cardView2)
         val links = root.findViewById<RecyclerView>(R.id.links)
+        card3 = root.findViewById<CardView>(R.id.cardView3)
+        val docs = root.findViewById<RecyclerView>(R.id.docs)
+        card4 = root.findViewById<CardView>(R.id.cardView4)
 
         card1?.visibility = View.GONE
         card2?.visibility = View.GONE
+        card3?.visibility = View.GONE
+        card4?.visibility = View.GONE
         name?.visibility = View.GONE
 
         viewModel.getEventDetails().observe(viewLifecycleOwner) {
-            if(it.successful) {
+            if (it.successful) {
                 loadingBar?.visibility = View.GONE
                 card1?.visibility = View.VISIBLE
                 card2?.visibility = View.VISIBLE
+                card3?.visibility = View.VISIBLE
+                card4?.visibility = View.VISIBLE
                 name?.visibility = View.VISIBLE
 
                 //card1-info
                 date.text = "Datum: " + it.data?.date
                 name?.text = it.data?.name
                 place.text = "Místo: " + it.data?.place
+                sport.text = "Sport: "+ it.data?.sport?.name
+                discipline.text = "Disciplína: "+ it.data?.discipline?.name
+                org.text = "Organizátor: "+ it.data?.org?.name
+                mapName.text = "Mapa: "+it.data?.map
+                startTime.text = "Start 00: " + it.data?.startTime
 
                 //card2-links
-                it.data?.links?.values.let {noNullLinks->
+                it.data?.links?.values.let { noNullLinks ->
                     links.adapter = LinksViewAdapter(ArrayList<Link?>(noNullLinks))
                     links.layoutManager = LinearLayoutManager(context)
                 }
-            }else{
+                //card3-links
+                it.data?.docs?.values.let { noNullDocs ->
+                    docs.adapter = LinksViewAdapter(ArrayList<Link?>(noNullDocs))
+                    docs.layoutManager = LinearLayoutManager(context)
+                }
+
+            } else {
                 Toast.makeText(context, R.string.error_msg, Toast.LENGTH_SHORT).show()
             }
         }
@@ -67,6 +92,8 @@ class EventFragment : Fragment() {
         super.onResume()
         card1?.visibility = View.GONE
         card2?.visibility = View.GONE
+        card3?.visibility = View.GONE
+        card4?.visibility = View.GONE
         name?.visibility = View.GONE
         loadingBar?.visibility = View.VISIBLE
     }
